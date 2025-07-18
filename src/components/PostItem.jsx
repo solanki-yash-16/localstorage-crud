@@ -25,8 +25,8 @@ const PostItem = ({ post }) => {
             onChange={(e) => setEditedPost({ ...editedPost, body: e.target.value })}
             className="border p-1 w-full mb-1"
           />
-          <button onClick={handleSave} className="text-green-600 mr-2">Save</button>
-          <button onClick={() => setEditing(false)} className="text-gray-500">Cancel</button>
+          <button onClick={handleSave} className="text-green-600 mr-2 cursor-pointer">Save</button>
+          <button onClick={() => setEditing(false)} className="text-gray-500 cursor-pointer">Cancel</button>
         </>
       ) : (
         <>

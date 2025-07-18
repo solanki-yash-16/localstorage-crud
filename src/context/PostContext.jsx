@@ -7,8 +7,8 @@ export const PostProvider = ({ children }) => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    const localData = getLocalPosts();
-    setPosts(localData);
+    const stored = getLocalPosts();
+    setPosts(stored);
   }, []);
 
   useEffect(() => {
@@ -16,16 +16,21 @@ export const PostProvider = ({ children }) => {
   }, [posts]);
 
   const addPost = (post) => {
-    const newPost = { ...post, id: Date.now() };
-    setPosts((prev) => [newPost, ...prev]); // new post first
+    setPosts([...posts, { ...post, id: Date.now() }]);
   };
 
   const deletePost = (id) => {
-    setPosts((prev) => prev.filter((p) => p.id !== id));
+    setPosts(posts.filter((p) => p.id !== id));
+  };
+
+  const updatePost = (updatedPost) => {
+    setPosts(
+      posts.map((p) => (p.id === updatedPost.id ? updatedPost : p))
+    );
   };
 
   return (
-    <PostContext.Provider value={{ posts, addPost, deletePost }}>
+    <PostContext.Provider value={{ posts, addPost, deletePost, updatePost }}>
       {children}
     </PostContext.Provider>
   );
